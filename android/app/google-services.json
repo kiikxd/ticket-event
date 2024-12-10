@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "230508482755",
+    "project_id": "e-ticket-event",
+    "storage_bucket": "e-ticket-event.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230508482755:android:86abe7fa5cd2c1138f1276",
+        "android_client_info": {
+          "package_name": "ticket.event"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBgjUdHly07r02xRaZkxTXvtwJSrQU2Lk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
