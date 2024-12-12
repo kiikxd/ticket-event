@@ -22,4 +22,14 @@ class Validators {
     }
     return null;
   }
+
+  static String? validateConfirmPassword(String? value, String? originalPassword) {
+    if (value == null || value.isEmpty) {
+      return 'Confirm password is required';
+    }
+    if (value != originalPassword) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 }

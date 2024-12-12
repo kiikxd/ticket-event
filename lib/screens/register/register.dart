@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pkl_project/services/auth_service.dart';
 import 'package:pkl_project/widgets/rounded_inputfield.dart';
+import 'package:pkl_project/widgets/rounded_button.dart';
 import 'package:pkl_project/screens/login/login.dart';
 import 'package:pkl_project/utils/validators.dart';
 
@@ -12,6 +13,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   final AuthService authService = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -29,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => LoginScreen()),
-        );
+          );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -42,33 +44,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              RoundedTextField(
-                controller: emailController,
-                label: 'Email',
-                icon: Icons.email,
-                validator: Validators.validateEmail, // Validasi email
-              ),
-              SizedBox(height: 16),
-              RoundedTextField(
-                controller: passwordController,
-                label: 'Password',
-                icon: Icons.lock,
-                obscureText: true,
-                validator: Validators.validatePassword, // Validasi password
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: register,
-                child: Text("Register"),
-              ),
-            ],
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
+      ),
+      body: Center( // Pusatkan isi layar
+        child: SingleChildScrollView( // Scroll untuk menjaga layout tetap responsif
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Register Sevent',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 30),
+                RoundedTextField(
+                  controller: emailController,
+                  label: 'Email',
+                  icon: Icons.email,
+                  validator: Validators.validateEmail,
+                ),
+                SizedBox(height: 16),
+                RoundedTextField(
+                  controller: passwordController,
+                  label: 'Password',
+                  icon: Icons.lock,
+                  obscureText: true,
+                  validator: Validators.validatePassword,
+                ),
+                SizedBox(height: 16),
+                RoundedTextField(
+                  controller: confirmPasswordController,
+                  label: 'Confirm Password',
+                  icon: Icons.lock,
+                  obscureText: true,
+                  validator: (value) =>
+                      Validators.validateConfirmPassword(value, passwordController.text),
+                ),
+                SizedBox(height: 16),
+                RoundedButton(
+                  text: 'Register',
+                  onPressed: register,
+                ),
+              ],
+            ),
           ),
         ),
       ),
