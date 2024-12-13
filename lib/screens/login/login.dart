@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pkl_project/services/auth_service.dart';
+import 'package:pkl_project/services/authService.dart';
 import 'package:pkl_project/widgets/rounded_inputfield.dart';
 import 'package:pkl_project/widgets/rounded_button.dart';
 import 'package:pkl_project/screens/register/register.dart';
-import '../welcome/home.dart';
+import 'package:pkl_project/screens/welcome/welcome.dart';
 import 'package:pkl_project/utils/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (user != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => WelcomeScreen()),
         );
       } else {
         ScaffoldMessenger.of(context)

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pkl_project/services/auth_service.dart';
+import 'package:pkl_project/services/authService.dart';
 import 'package:pkl_project/widgets/rounded_inputfield.dart';
 import 'package:pkl_project/widgets/rounded_button.dart';
 import 'package:pkl_project/screens/login/login.dart';
@@ -14,6 +14,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final AuthService authService = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -21,9 +23,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_formKey.currentState!.validate()) {
       String email = emailController.text;
       String password = passwordController.text;
+      String firstName = firstNameController.text;
+      String lastName = lastNameController.text;
 
       try {
-        var user = await authService.registerWithEmailPassword(email, password);
+        var user = await authService.registerWithEmailPassword(
+          email, password,firstName, lastName);
         if (user != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Registration successful!")),
@@ -70,6 +75,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
+                RoundedTextField(
+                  controller: firstNameController,
+                  label: 'First Name',
+                  icon: Icons.person,
+                  validator: Validators.validateName, // Custom validator for first name
+                ),
+                SizedBox(height: 16),
+                RoundedTextField(
+                  controller: lastNameController,
+                  label: 'Last Name',
+                  icon: Icons.person,
+                  validator: Validators.validateName,
+                ),
+                SizedBox(height: 16),
                 RoundedTextField(
                   controller: emailController,
                   label: 'Email',
